@@ -1,0 +1,48 @@
+﻿@model Training.Models.Training.trainee
+
+@{
+	ViewData["Title"] = "Your profile";
+	Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Index Your profile</title>
+</head>
+<body style="background-color: lightblue">
+	<div >
+		<h4>Index Your profile</h4>
+		<div class="imgContainer">
+			<img src="~/image/img/avatar.jpg" alt="Can't load image" class="avatar" />
+		</div>
+
+		<div style="font-size: x-large">
+			@Html.LabelFor(model => model.name, "Name: ")
+			<td>@Model.name</td>
+		</div>
+
+		<div style="font-size: x-large">
+			@Html.LabelFor(model => model.DOB, "Date of birth: ")
+			<td>@Model.DOB.ToString().Substring(0, 10)</td>
+		</div>
+
+		<div style="font-size: x-large">
+			@Html.LabelFor(model => model.education, "Education: ")
+			<td>@Model.education</td>
+		</div>
+
+		<div style="font-size: x-large">
+			@Html.LabelFor(model => model.programmingLanguage, "Program language: ")
+			<td>@Model.programmingLanguage</td>
+		</div>
+
+		<div style="font-size: x-large">
+			@Html.LabelFor(model => model.TOEICScore, "TOEIC Score: ")
+			<td>@Model.TOEICScore</td>
+		</div>
+	</div>
+</body>
+</html>

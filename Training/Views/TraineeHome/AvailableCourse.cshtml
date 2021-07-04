@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Training.Models.Training.course>
+
+
+@{
+	ViewData["Title"] = "Available course";
+	Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>AvailableCourse</title>
+
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
+
+</head>
+<body style="background-color: lightblue">
+	<div >
+		<h1>Available course</h1>
+		<div>
+			<table>
+				<tr>
+					<th>Subject code</th>
+					<th>Category name</th>
+					<th>Course name</th>
+				</tr>
+
+				@foreach (var course in Model)
+				{
+					<tr>
+						<td>@course.ID</td>
+						<td>@course.category.categoryName</td>
+						<td>@course.courseName</td>
+					</tr>
+				}
+			</table>
+		</div>
+	</div>
+</body>
+</html>

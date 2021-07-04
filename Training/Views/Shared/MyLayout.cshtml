@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<link rel="stylesheet" href="~/Content/login.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			margin: 10;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		/* Style the side navigation */
+		.sidenav {
+			height: 100%;
+			width: 120px;
+			position: fixed;
+			z-index: 1;
+			top: 80px;
+			left: 0;
+			background-color: grey;
+			overflow-x: hidden;
+		}
+
+
+			/* Side navigation links */
+			.sidenav a {
+				color: white;
+				padding: 30px;
+				text-decoration: none;
+				display: block;
+			}
+
+				/* Change color on hover */
+				.sidenav a:hover {
+					background-color: #ddd;
+					color: black;
+				}
+
+		/* Style the content */
+		.content {
+			margin-left: 250px;
+			padding-left: 10px;
+		}
+	</style>
+
+</head>
+<body>
+
+	
+		<div class="header">
+			<div class="container">
+				<div class="header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					@Html.ActionLink("FPT School", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+				</div>
+
+				<form id="coursesearch" action="https://cms.greenwich.edu.vn/course/search.php" method="get" style="float: right; margin-top: 10px"  class="form-inline" role="form">
+					<div class="form-group">
+						<label for="coursesearchbox" class="sr-only">Search Courses</label>
+						<input type="text" id="coursesearchbox" size="30" name="search" class="form-control" style="width: 50%" value="" placeholder="Search Courses">
+						<button type="submit" class="mt-1 btn btn-primary" style="width: 20%">Go</button>
+					</div>
+				</form>
+			</div>
+			</div>
+
+			<div class="sidenav">
+				<ul class="nav navbar-nav">
+
+
+					@if (Session["TraineeID"] == null || Session["TraineeID"].Equals(""))
+					{
+						<li>@Html.ActionLink("Login", "Index", "Login")</li>
+					}
+
+
+					@if (Session["TraineeID"] != null && !Session["TraineeID"].Equals(""))
+					{
+						<li>@Html.ActionLink("Change Password", "ChangePassword", "TraineeHome")</li>
+						<li>@Html.ActionLink("Your Profile", "Index", "YourProfile")</li>
+						<li>@Html.ActionLink("Available Course", "AvailableCourse", "TraineeHome")</li>
+						<li>@Html.ActionLink("Courses Assigned", "CoursesAssigned", "TraineeHome")</li>
+						<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+					}
+
+
+					@if (Session["AdminID"] != null && !Session["AdminID"].Equals(""))
+					{
+						<li>@Html.ActionLink("Manage Account", "Index", "accounts")</li>
+						<li>@Html.ActionLink("Manage TrainingStaff", "Index", "trainingStaffs")</li>
+						<li>@Html.ActionLink("Manage Trainer", "Index", "trainers")</li>
+						<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+					}
+
+					@if (Session["TrainerID"] != null && !Session["TrainerID"].Equals(""))
+					{
+						<li>@Html.ActionLink("Update Profile", "Index", "trainers")</li>
+						<li>@Html.ActionLink("Change password", "ChangePassword", "trainers")</li>
+						<li>@Html.ActionLink("View courses assigned", "Index", "trainers")</li>
+						<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+					}
+
+					@if (Session["TrainingStaffID"] != null && !Session["TrainingStaffID"].Equals(""))
+					{
+						<li>@Html.ActionLink("Manage Course", "Index", "courses")</li>
+						<li>@Html.ActionLink("Manage Trainee", "Index", "trainees")</li>
+						<li>@Html.ActionLink("Manage Trainer", "Index", "trainers")</li>
+						<li>@Html.ActionLink("Manage Category", "Index", "categories")</li>
+						<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+					}
+
+				</ul>
+			</div>
+
+
+			<div class="container body-content">
+				@RenderBody()
+				<hr />
+				<footer>
+					<p>&copy; @DateTime.Now.Year - FPT Schools</p>
+				</footer>
+			</div>
+
+			@Scripts.Render("~/bundles/jquery")
+			@Scripts.Render("~/bundles/bootstrap")
+			@RenderSection("scripts", required: false)
+</body>
+</html>

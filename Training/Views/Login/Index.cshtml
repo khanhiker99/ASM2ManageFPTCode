@@ -1,0 +1,94 @@
+﻿@model Training.Models.Training.account
+
+@{
+	ViewData["Title"] = "Login Page";
+	Layout = "~/Views/Shared/MyLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+@*<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login Page</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>*@
+<body class="text-center" style="background-color: lightblue">
+
+	<div class="sidenav">
+		<ul class="nav navbar-nav">
+
+
+			@if (Session["TraineeID"] == null || Session["TraineeID"].Equals(""))
+			{
+				<li>@Html.ActionLink("Login", "Index", "Login")</li>
+			}
+
+
+			@if (Session["TraineeID"] != null && !Session["TraineeID"].Equals(""))
+			{
+				<li>@Html.ActionLink("Change Password", "ChangePassword", "TraineeHome")</li>
+				<li>@Html.ActionLink("Your Profile", "Index", "YourProfile")</li>
+				<li>@Html.ActionLink("Available Course", "AvailableCourse", "TraineeHome")</li>
+				<li>@Html.ActionLink("Courses Assigned", "CoursesAssigned", "TraineeHome")</li>
+				<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+			}
+
+
+			@if (Session["AdminID"] != null && !Session["AdminID"].Equals(""))
+			{
+				<li>@Html.ActionLink("Manage Account", "Index", "accounts")</li>
+				<li>@Html.ActionLink("Manage TrainingStaff", "Index", "trainingStaffs")</li>
+				<li>@Html.ActionLink("Manage Trainer", "Index", "trainers")</li>
+				<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+			}
+
+			@if (Session["TrainerID"] != null && !Session["TrainerID"].Equals(""))
+			{
+				<li>@Html.ActionLink("Update Profile", "Index", "trainers")</li>
+				<li>@Html.ActionLink("Change password", "ChangePassword", "trainers")</li>
+				<li>@Html.ActionLink("View courses assigned", "Index", "trainers")</li>
+				<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+			}
+
+			@if (Session["TrainingStaffID"] != null && !Session["TrainingStaffID"].Equals(""))
+			{
+				<li>@Html.ActionLink("Manage Course", "Index", "courses")</li>
+				<li>@Html.ActionLink("Manage Trainee", "Index", "trainees")</li>
+				<li>@Html.ActionLink("Manage Trainer", "Index", "trainers")</li>
+				<li>@Html.ActionLink("Manage Category", "Index", "categories")</li>
+				<li><a class="dropdown-item" href="~/Login/Logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+			}
+
+		</ul>
+	</div>
+
+	<h2>Login</h2>
+	@using (Html.BeginForm())
+	{
+		<form class="form-group" action="/Login" method="post">
+			<div class="container" style="padding-left: 400px; padding-right: 400px">
+				<div>
+					@*<label for="uname"> <b>UserName: </b></label>*@
+					@Html.LabelFor(model => model.username, "Username ")
+					@Html.EditorFor(model => model.username)
+					@Html.ValidationMessageFor(model => model.username)
+				</div>
+
+				<div>
+					@*<label for="psw"> <b>Password: </b></label>*@
+					@Html.LabelFor(model => model.password, "Password ")
+					@Html.EditorFor(model => model.password)
+					@Html.ValidationMessageFor(model => model.password)
+				</div>
+
+				<input class="mt-1 btn btn-primary" type="submit" value="Log in">
+			</div>
+		</form>
+
+		@Html.ActionLink("Back to home", "Index", "Home")
+	}
+	@{ Html.EndForm();}
+</body>
+</html>
